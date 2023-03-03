@@ -12,8 +12,6 @@ public class Main {
         START, L, LO, LOR, LORD, G, GO, GOD, MATCHED_LORD, MATCHED_GOD, WHITESPACE
     }
 
-    private static final String SPECIAL_CHARS = " \t\n.,;:!?()[]{}-–—\"'";
-
     public static void main(String[] args) {
 
         String fileName = "C:\\Dev\\PrefixTrie\\src\\main\\resources\\resources\\kjv.txt";
@@ -57,13 +55,13 @@ public class Main {
                         state = transitionFromGod(ch);
                         break;
                     case MATCHED_GOD:
-                        if (isSpecialChar(ch) || isWhitespace(ch)) {
+                        if (isSpecialCharacter(ch) || isWhitespace(ch)) {
                             countGod++;
                         }
                         state = transitionFromWhitespace(ch);
                         break;
                     case MATCHED_LORD:
-                        if (isSpecialChar(ch) || isWhitespace(ch)) {
+                        if (isSpecialCharacter(ch) || isWhitespace(ch)) {
                             countLord++;
                         }
                         state = transitionFromWhitespace(ch);
@@ -80,10 +78,6 @@ public class Main {
 
     private static boolean isWhitespace(char ch) {
         return Character.isWhitespace(ch);
-    }
-
-    private static boolean isSpecialChar(char ch) {
-        return SPECIAL_CHARS.indexOf(ch) >= 0;
     }
 
     private static State transitionFromStart(char ch) {
@@ -150,7 +144,7 @@ public class Main {
 
     private static boolean isSpecialCharacter(char ch) {
         // define special characters that should be considered as end of a word
-        char[] specialChars = {' ', '.', ',', ';', ':', '!', '?', '-', '_', '/', '\\', '<', '>', '(', ')', '[', ']', '{', '}', '\"', '\'', '\n', '\r', '\t'};
+        char[] specialChars = {'.', ','};
         for (char c : specialChars) {
             if (ch == c) {
                 return true;
