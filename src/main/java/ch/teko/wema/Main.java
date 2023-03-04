@@ -3,6 +3,7 @@ package ch.teko.wema;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 //TODO: finishing implementing what is needed
 //TODO: research if it is possible to have a general search for a word (eingabe in konsole, dann wird wort gesucht.)
@@ -20,6 +21,7 @@ public class Main {
         int countGod = 0;
         State state = State.START;
 
+        var counter = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             int c;
             while ((c = br.read()) != -1) {
@@ -55,9 +57,9 @@ public class Main {
                         state = transitionFromGod(ch);
                         break;
                     case MATCHED_GOD:
-                        if (isSpecialCharacter(ch) || isWhitespace(ch)) {
+
                             countGod++;
-                        }
+
                         state = transitionFromWhitespace(ch);
                         break;
                     case MATCHED_LORD:
@@ -74,6 +76,8 @@ public class Main {
 
         System.out.println("The word 'lord' occurs " + countLord + " times.");
         System.out.println("The word 'god' occurs " + countGod + " times.");
+
+        System.out.println("The word 'god' occurs " + counter + " times.");
     }
 
     private static boolean isWhitespace(char ch) {
@@ -83,9 +87,6 @@ public class Main {
     private static State transitionFromStart(char ch) {
         if (Character.isWhitespace(ch)) {
             return State.WHITESPACE;
-        }
-        if (ch == 'g') {
-            return State.G;
         }
         return State.START;
     }
@@ -144,7 +145,8 @@ public class Main {
 
     private static boolean isSpecialCharacter(char ch) {
         // define special characters that should be considered as end of a word
-        char[] specialChars = {'.', ','};
+        //TODO research if there is a function that states of there is no buchstabe
+        char[] specialChars = {'\'', ' ', '.', ',', ';', ':', '!', '?', '-', '_', '/', '\\', '<', '>', '(', ')', '[', ']', '{', '}', '\"', '\'', '\n', '\r', '\t'};
         for (char c : specialChars) {
             if (ch == c) {
                 return true;
