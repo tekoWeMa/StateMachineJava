@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String fileName = "C:\\Dev\\PrefixTrie\\src\\main\\resources\\resources\\kjv.txt";
+        String fileName = "C:\\Dev\\StateMachineJava\\src\\main\\resources\\kjv.txt";
 
         int countLord = 0;
         int countGod = 0;
